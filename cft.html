@@ -1,0 +1,505 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="ICO smart contract example">
+
+    <title>My token For test</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
+
+    <!-- Custom styles for this template -->
+    <style>
+      /* Space out content a bit */
+      body {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
+
+      /* Everything but the jumbotron gets side spacing for mobile first views */
+      .header,
+      .marketing,
+      .footer {
+        padding-right: 1rem;
+        padding-left: 1rem;
+      }
+
+      /* Custom page header */
+      .header {
+        padding-bottom: 1rem;
+        border-bottom: .05rem solid #e5e5e5;
+      }
+      /* Make the masthead heading the same height as the navigation */
+      .header h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 3rem;
+      }
+
+      /* Custom page footer */
+      .footer {
+        padding-top: 1.5rem;
+        color: #777;
+        border-top: .05rem solid #e5e5e5;
+      }
+
+      /* Customize container */
+      @media (min-width: 48em) {
+        .container {
+          max-width: 46rem;
+        }
+      }
+      .container-narrow > hr {
+        margin: 2rem 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        text-align: center;
+        border-bottom: .05rem solid #e5e5e5;
+      }
+      .jumbotron .btn {
+        padding: .75rem 1.5rem;
+        font-size: 1.5rem;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 3rem 0;
+      }
+      .marketing p + h4 {
+        margin-top: 1.5rem;
+      }
+
+      /* Responsive: Portrait tablets and up */
+      @media screen and (min-width: 48em) {
+        /* Remove the padding we set earlier */
+        .header,
+        .marketing,
+        .footer {
+          padding-right: 0;
+          padding-left: 0;
+        }
+        /* Space out the masthead */
+        .header {
+          margin-bottom: 2rem;
+        }
+        /* Remove the bottom border on the jumbotron for visual effect */
+        .jumbotron {
+          border-bottom: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header clearfix">
+
+        <h3 class="text-muted"   style="text-align:center">Crowdsale for CFT </h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1 class="display-5">Send money to the address:</h1>
+        <p class="lead"><strong style="color:blue">0x7471973f814e89d10ffc524ea195832a87518ebf</strong></p>
+        <h1 class="display-5">Total Raised:</h1>
+        <p class="lead"><strong style="color:#d2002d" id="amountRaised"></strong> / <strong style="color:#d2002d" id="totalSupply"></strong></p>
+		
+		
+		
+		<h1 class="display-5">Name of token:</h1>
+        <p class="lead"><strong style="color:#d2002d" id="name"></strong></p>
+		
+		<h1 class="display-5">Symbol:</h1>
+        <p class="lead"><strong style="color:#d2002d" id="symbol"></strong></p>
+		
+		<h1 class="display-5">Decimals:</h1>
+        <p class="lead"><strong style="color:#d2002d" id="Decimals"></strong></p>
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-12"   style="text-align:center">
+          <h4>Price per  1 ETH:</h4>
+		  <p class="lead"><strong style="color:#d2002d" id="unitsOneEthCanBuy"></strong></p>
+          
+
+          <h4>Total Supply:</h4>
+		  <p class="lead"><strong style="color:#d2002d" id="totalSupply1"></strong></p>
+		  
+
+
+
+
+
+		
+      <footer class="footer" style="text-align:center">
+        <p>&copy; CFT 2018 </p>
+      </footer>
+
+    </div> <!-- /container -->
+    <script src="https://cdn.rawgit.com/ethereum/web3.js/0.19.0/dist/web3.js"></script>
+    <script>
+        var abi = 
+        //[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"fundsWallet","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"unitsOneEthCanBuy","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalEthInWei","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}]
+[
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "version",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"name": "_spender",
+				"type": "address"
+			}
+		],
+		"name": "allowance",
+		"outputs": [
+			{
+				"name": "remaining",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"name": "balance",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalEthInWei",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "symbol",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "decimals",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "unitsOneEthCanBuy",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "fundsWallet",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "_spender",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_spender",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_spender",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			},
+			{
+				"name": "_extraData",
+				"type": "bytes"
+			}
+		],
+		"name": "approveAndCall",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "fallback"
+	}
+]
+
+
+		var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
+
+  
+          // creation of contract object
+          var MyContract = web3.eth.contract(abi);
+
+          // initiate contract for an address
+          var myContractInstance = MyContract.at('0x7471973f814e89d10ffc524ea195832a87518ebf');
+
+          myContractInstance.totalEthInWei(function(err,data){
+            document.getElementById('amountRaised').innerHTML = (data.toString(10)/1000000000000000000) + ' ETH';
+          });
+		  
+		  //name
+		  myContractInstance.name(function(err,data){
+            document.getElementById('name').innerHTML = (data.toString(10));
+          });
+		  
+		  //symbol
+		  myContractInstance.symbol(function(err,data){
+            document.getElementById('symbol').innerHTML = (data.toString(10));
+          });
+		  
+		  // decimals
+		  myContractInstance.decimals(function(err,data){
+            document.getElementById('Decimals').innerHTML = (data.toString(10)) + ' decimals';
+          });
+		  
+		  // one eth can buy n tokens
+		  myContractInstance.unitsOneEthCanBuy(function(err,data){
+            document.getElementById('unitsOneEthCanBuy').innerHTML = (data.toString(10)) + ' CFT';
+          });
+		  
+		  myContractInstance.totalSupply(function(err,data){
+            document.getElementById('totalSupply').innerHTML = (data.toString(10)/1000000000000000000) + ' ETH';
+          });
+		  
+		   myContractInstance.totalSupply(function(err,data){
+            document.getElementById('totalSupply1').innerHTML = (data.toString(10)/1000000000000000000) + ' ETH';
+          });
+		  
+    </script>
+  </body>
+</html>
+
